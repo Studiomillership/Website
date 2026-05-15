@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SM(26)</title>
+
+  <style>
+    :root {
+      --paper: #cf584b;
+      --ink: #050505;
+      --image-width: clamp(280px, 31vw, 528px);
+      --page-edge-x: clamp(28px, 3.4vw, 58px);
+      --page-edge-y: clamp(28px, 5.4vh, 58px);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a,
+    button {
+      color: inherit;
+      font: inherit;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    button {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    button:focus:not(:focus-visible),
+    a:focus:not(:focus-visible) {
+      outline: 0;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 1px solid currentColor;
+      outline-offset: 0.18em;
+    }
+
+    .site {
+      min-height: 100vh;
+      min-height: 100svh;
+      border: 1px solid rgba(0, 0, 0, 0.72);
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .landing {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(0, 0, 0, 0.72);
+      background: var(--paper);
+      cursor: pointer;
+      transition: opacity 900ms ease, visibility 900ms ease;
+    }
+
+    .landing.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .mark {
+      display: grid;
+      gap: clamp(34px, 6.2vh, 76px);
+      text-align: center;
+      font-size: clamp(74px, 8.6vw, 160px);
+      font-weight: 800;
+      line-height: 0.82;
+      letter-spacing: 0;
+    }
+
+    .page {
+      min-height: 100vh;
+      min-height: 100svh;
+      position: relative;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      padding: var(--page-edge-y) var(--page-edge-x);
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: minmax(104px, 1fr) auto minmax(104px, 1fr);
+      align-items: start;
+      gap: 18px;
+      font-size: clamp(15px, 1vw, 17px);
+      line-height: 1;
+    }
+
+    .topbar button,
+    .topbar a {
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .status {
+      justify-self: center;
+      margin-top: 7px;
+      font-size: clamp(13px, 0.96vw, 16px);
+      line-height: 1.1;
+      text-transform: lowercase;
+      white-space: nowrap;
+    }
+
+    .contact-link {
+      justify-self: end;
+    }
+
+    .stage {
+      display: grid;
+      place-items: center;
+      min-height: 0;
+      padding-top: clamp(42px, 5.8vh, 78px);
+      padding-bottom: clamp(52px, 8vh, 92px);
+      position: relative;
+    }
+
+    .slideshow {
+      width: var(--image-width);
+      aspect-ratio: 0.805;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 950ms ease;
+    }
+
+    .slide.is-active {
+      opacity: 1;
+    }
+
+    .about-panel {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      display: grid;
+      place-items: center;
+      padding: clamp(28px, 5vw, 72px);
+      background: var(--paper);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 650ms ease;
+    }
+
+    .page.is-about .about-panel {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .about-copy {
+      width: min(760px, 86vw);
+      margin: 0;
+      text-align: center;
+      font-size: clamp(16px, 1.5vw, 24px);
+      line-height: 1.33;
+      font-weight: 700;
+    }
+
+    .about-copy a {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.16em;
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --page-edge-x: 20px;
+        --page-edge-y: 24px;
+        --image-width: min(76vw, 360px);
+      }
+
+      .mark {
+        gap: 34px;
+        font-size: clamp(62px, 20vw, 108px);
+      }
+
+      .topbar {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 20px;
+      }
+
+      .status {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        justify-self: center;
+        margin-top: 0;
+      }
+
+      .contact-link {
+        justify-self: end;
+      }
+
+      .stage {
+        padding-top: 34px;
+        padding-bottom: 44px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="landing" id="landing" aria-label="Enter SM(26)">
+    <div class="mark" aria-hidden="true">
+      <div>SM(26)</div>
+      <div>SM(26)</div>
+      <div>SM(26)</div>
+    </div>
+  </div>
+
+  <div class="site">
+    <div class="page" id="page">
+      <header class="topbar" aria-label="Site navigation">
+        <button type="button" id="aboutButton">About</button>
+        <div class="status">new website coming soon</div>
+        <a class="contact-link" href="mailto:hello@studiomillership.com">Contact</a>
+      </header>
+
+      <main class="stage">
+        <div class="slideshow" id="slideshow" aria-label="Project image slideshow">
+          <img class="slide is-active" src="assets/03_Morello.jpg" alt="Studio Millership project image 1">
+          <img class="slide" src="assets/01_Morello.jpg" alt="Studio Millership project image 2">
+          <img class="slide" src="assets/02_Morello.jpg" alt="Studio Millership project image 3">
+        </div>
+      </main>
+
+      <section class="about-panel" id="aboutPanel" aria-label="About Studio Millership">
+        <p class="about-copy">
+          Studio Millership is a design studio currently developing a new website.
+          For enquiries, please contact
+          <a href="mailto:hello@studiomillership.com">hello@studiomillership.com</a>.
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const landing = document.getElementById("landing");
+    const page = document.getElementById("page");
+    const aboutButton = document.getElementById("aboutButton");
+    const aboutPanel = document.getElementById("aboutPanel");
+    const slideshow = document.getElementById("slideshow");
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    let activeSlide = 0;
+
+    const showSlide = (index) => {
+      slides[activeSlide].classList.remove("is-active");
+      activeSlide = (index + slides.length) % slides.length;
+      slides[activeSlide].classList.add("is-active");
+    };
+
+    const nextSlide = () => showSlide(activeSlide + 1);
+
+    landing.addEventListener("click", () => {
+      landing.classList.add("is-hidden");
+    });
+
+    aboutButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      page.classList.add("is-about");
+    });
+
+    aboutPanel.addEventListener("click", (event) => {
+      event.stopPropagation();
+      page.classList.remove("is-about");
+    });
+
+    slideshow.addEventListener("click", (event) => {
+      event.stopPropagation();
+      nextSlide();
+    });
+
+    document.addEventListener("click", () => {
+      page.classList.remove("is-about");
+    });
+
+    window.setInterval(nextSlide, 4200);
+  </script>
+</body>
+</html>
