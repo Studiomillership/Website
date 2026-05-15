@@ -184,7 +184,7 @@
       z-index: 10;
       display: grid;
       place-items: start;
-      padding: clamp(54px, 5vw, 72px) clamp(52px, 3.5vw, 60px);
+      padding: var(--page-edge-y) var(--page-edge-x);
       background: var(--paper);
       opacity: 0;
       pointer-events: none;
@@ -298,7 +298,7 @@
 
       .about-panel,
       .contact-panel {
-        padding: 78px 22px 32px;
+        padding: var(--page-edge-y) var(--page-edge-x);
       }
 
       .about-copy,
