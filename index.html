@@ -9,7 +9,7 @@
     :root {
       --paper: #cf584b;
       --ink: #050505;
-      --image-width: clamp(224px, 24.8vw, 422px);
+      --image-width: clamp(246px, 27.3vw, 464px);
       --page-edge-x: clamp(24px, 2.8vw, 48px);
       --page-edge-y: clamp(28px, 5.4vh, 58px);
     }
@@ -91,11 +91,12 @@
 
     .mark {
       display: grid;
-      gap: clamp(34px, 6.2vh, 76px);
+      gap: clamp(20px, 3.2vh, 42px);
       text-align: center;
-      font-size: clamp(74px, 8.6vw, 160px);
+      font-family: "PingFang MO", "PingFang SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: clamp(118px, 11.4vw, 218px);
       font-weight: 500;
-      line-height: 0.82;
+      line-height: 0.86;
       letter-spacing: 0;
     }
 
@@ -130,7 +131,9 @@
     .status {
       justify-self: center;
       margin-top: 7px;
-      font-size: clamp(13px, 0.96vw, 16px);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: clamp(12px, 0.82vw, 15px);
+      font-weight: 100;
       line-height: 1.1;
       text-transform: lowercase;
       white-space: nowrap;
@@ -170,7 +173,8 @@
       opacity: 1;
     }
 
-    .about-panel {
+    .about-panel,
+    .contact-panel {
       position: absolute;
       inset: 0;
       z-index: 10;
@@ -184,7 +188,8 @@
       transition: opacity 650ms ease;
     }
 
-    .page.is-about .about-panel {
+    .page.is-about .about-panel,
+    .page.is-contact .contact-panel {
       opacity: 1;
       pointer-events: auto;
     }
@@ -206,22 +211,36 @@
       margin-bottom: 0;
     }
 
-    .about-copy a {
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 0.16em;
+    .contact-copy {
+      margin: 0;
+      text-align: left;
+      font-size: clamp(28px, 2.1vw, 38px);
+      line-height: 1.18;
+      font-weight: 500;
+    }
+
+    .contact-copy p {
+      margin: 0 0 2.5em;
+    }
+
+    .contact-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    .contact-copy a {
+      text-decoration: none;
     }
 
     @media (max-width: 760px) {
       :root {
         --page-edge-x: 20px;
         --page-edge-y: 24px;
-        --image-width: min(61vw, 288px);
+        --image-width: min(67vw, 317px);
       }
 
       .mark {
-        gap: 34px;
-        font-size: clamp(62px, 20vw, 108px);
+        gap: 28px;
+        font-size: clamp(76px, 23vw, 124px);
       }
 
       .topbar {
@@ -245,11 +264,13 @@
         padding-bottom: 44px;
       }
 
-      .about-panel {
+      .about-panel,
+      .contact-panel {
         padding: 78px 22px 32px;
       }
 
-      .about-copy {
+      .about-copy,
+      .contact-copy {
         width: 100%;
         font-size: clamp(22px, 7vw, 34px);
       }
@@ -263,6 +284,7 @@
       <div>SM(26)</div>
       <div>SM(26)</div>
       <div>SM(26)</div>
+      <div>SM(26)</div>
     </div>
   </div>
 
@@ -271,7 +293,7 @@
       <header class="topbar" aria-label="Site navigation">
         <button type="button" id="aboutButton">About</button>
         <div class="status">new website coming soon</div>
-        <a class="contact-link" href="mailto:hello@studiomillership.com">Contact</a>
+        <button type="button" class="contact-link" id="contactButton">Contact</button>
       </header>
 
       <main class="stage">
@@ -316,6 +338,29 @@
           </p>
         </div>
       </section>
+
+      <section class="contact-panel" id="contactPanel" aria-label="Contact Studio Millership">
+        <div class="contact-copy">
+          <p>
+            Studio Millership<br>
+            42 Theobalds Road<br>
+            London<br>
+            WC 1X 8NW
+          </p>
+
+          <p>
+            <a href="tel:+447903444908">+44 (0) 790 3444 908</a>
+          </p>
+
+          <p>
+            <a href="mailto:hello@studiomillership.com">hello@studiomillership.com</a>
+          </p>
+
+          <p>
+            <a href="https://www.instagram.com/studiomillership/" target="_blank" rel="noreferrer">@studiomillership</a>
+          </p>
+        </div>
+      </section>
     </div>
   </div>
 
@@ -323,7 +368,9 @@
     const landing = document.getElementById("landing");
     const page = document.getElementById("page");
     const aboutButton = document.getElementById("aboutButton");
+    const contactButton = document.getElementById("contactButton");
     const aboutPanel = document.getElementById("aboutPanel");
+    const contactPanel = document.getElementById("contactPanel");
     const slideshow = document.getElementById("slideshow");
     const slides = Array.from(document.querySelectorAll(".slide"));
     let activeSlide = 0;
@@ -342,12 +389,24 @@
 
     aboutButton.addEventListener("click", (event) => {
       event.stopPropagation();
+      page.classList.remove("is-contact");
       page.classList.add("is-about");
+    });
+
+    contactButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      page.classList.remove("is-about");
+      page.classList.add("is-contact");
     });
 
     aboutPanel.addEventListener("click", (event) => {
       event.stopPropagation();
       page.classList.remove("is-about");
+    });
+
+    contactPanel.addEventListener("click", (event) => {
+      event.stopPropagation();
+      page.classList.remove("is-contact");
     });
 
     slideshow.addEventListener("click", (event) => {
@@ -357,6 +416,7 @@
 
     document.addEventListener("click", () => {
       page.classList.remove("is-about");
+      page.classList.remove("is-contact");
     });
   </script>
 </body>
