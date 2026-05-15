@@ -175,11 +175,12 @@
       inset: 0;
       z-index: 10;
       display: grid;
-      place-items: center;
-      padding: clamp(28px, 5vw, 72px);
+      place-items: start;
+      padding: clamp(54px, 5vw, 72px) clamp(52px, 3.5vw, 60px);
       background: var(--paper);
       opacity: 0;
       pointer-events: none;
+      overflow-y: auto;
       transition: opacity 650ms ease;
     }
 
@@ -189,12 +190,20 @@
     }
 
     .about-copy {
-      width: min(760px, 86vw);
+      width: min(1240px, 92vw);
       margin: 0;
-      text-align: center;
-      font-size: clamp(16px, 1.5vw, 24px);
-      line-height: 1.33;
+      text-align: left;
+      font-size: clamp(22px, 2.1vw, 38px);
+      line-height: 1.18;
       font-weight: 500;
+    }
+
+    .about-copy p {
+      margin: 0 0 1.35em;
+    }
+
+    .about-copy p:last-child {
+      margin-bottom: 0;
     }
 
     .about-copy a {
@@ -235,6 +244,15 @@
         padding-top: 34px;
         padding-bottom: 44px;
       }
+
+      .about-panel {
+        padding: 78px 22px 32px;
+      }
+
+      .about-copy {
+        width: 100%;
+        font-size: clamp(22px, 7vw, 34px);
+      }
     }
   </style>
 </head>
@@ -272,11 +290,31 @@
       </main>
 
       <section class="about-panel" id="aboutPanel" aria-label="About Studio Millership">
-        <p class="about-copy">
-          Studio Millership is a design studio currently developing a new website.
-          For enquiries, please contact
-          <a href="mailto:hello@studiomillership.com">hello@studiomillership.com</a>.
-        </p>
+        <div class="about-copy">
+          <p>
+            Studio Millership is a London-based boutique architectural and interiors studio.
+            We are experienced across residential and hospitality sectors and our work
+            ranges from large complex commercial projects to individual homes.
+          </p>
+
+          <p>
+            We work with ambitious and inspiring clients who want to create beautiful
+            spaces that tell a story and enrich all who experience them.
+            By bridging the disciplines of architecture and interior design, we provide our
+            clients with a unique design service that ensures our concepts are clear in
+            expression, detailed in documentation, buildable through construction and
+            uncompromised in use.
+          </p>
+
+          <p>
+            For us, each project must have a strong design focus, be firmly grounded in its
+            locality and playful in its expression. Natural materials form the foundation of our
+            palette, and we work hard to develop new and more sustainable approaches.
+            We love to explore, delight in the detail, wonder at craft and strive to bring
+            genuine and positive enrichment to peoples’ lives through experience of our
+            spaces.
+          </p>
+        </div>
       </section>
     </div>
   </div>
