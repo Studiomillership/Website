@@ -179,6 +179,23 @@
       opacity: 1;
     }
 
+    .image-mark {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 2;
+      transform: translate(-50%, -50%);
+      width: max-content;
+      font-family: "PingFang MO", "PingFang SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: clamp(64px, 7vw, 132px);
+      font-weight: 500;
+      line-height: 0.86;
+      letter-spacing: 0;
+      color: var(--paper);
+      pointer-events: none;
+      mix-blend-mode: normal;
+    }
+
     .about-panel,
     .contact-panel {
       position: absolute;
@@ -302,6 +319,10 @@
         padding-bottom: 44px;
       }
 
+      .image-mark {
+        font-size: clamp(42px, 16vw, 76px);
+      }
+
       .about-copy,
       .contact-copy {
         width: calc(100vw - var(--page-edge-x) * 2);
@@ -343,6 +364,7 @@
           <img class="slide" src="assets/08_SM_NE.jpg" alt="Studio Millership image 8">
           <img class="slide" src="assets/09_SM_CW.jpg" alt="Studio Millership image 9">
           <img class="slide" src="assets/10_SM_AP.jpg" alt="Studio Millership image 10">
+          <div class="image-mark" aria-hidden="true">SM(26)</div>
         </div>
       </main>
 
