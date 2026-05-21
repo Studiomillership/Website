@@ -179,21 +179,42 @@
       opacity: 1;
     }
 
-    .image-mark {
+    .moving-name {
       position: absolute;
-      left: 50%;
+      left: 0;
+      right: 0;
       top: 50%;
-      z-index: 2;
-      transform: translate(-50%, -50%);
+      z-index: 3;
+      overflow: hidden;
+      pointer-events: none;
+      transform: translateY(-50%);
+      white-space: nowrap;
+    }
+
+    .moving-name-track {
+      display: flex;
       width: max-content;
+      animation: moveName 26s linear infinite;
+    }
+
+    .moving-name span {
+      padding-right: 0.45em;
       font-family: "PingFang MO", "PingFang SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: clamp(64px, 7vw, 132px);
+      font-size: clamp(72px, 8vw, 150px);
       font-weight: 500;
       line-height: 0.86;
       letter-spacing: 0;
-      color: var(--paper);
-      pointer-events: none;
-      mix-blend-mode: normal;
+      color: var(--ink);
+    }
+
+    @keyframes moveName {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
     }
 
     .about-panel,
@@ -319,8 +340,8 @@
         padding-bottom: 44px;
       }
 
-      .image-mark {
-        font-size: clamp(42px, 16vw, 76px);
+      .moving-name span {
+        font-size: clamp(54px, 18vw, 92px);
       }
 
       .about-copy,
@@ -364,7 +385,14 @@
           <img class="slide" src="assets/08_SM_NE.jpg" alt="Studio Millership image 8">
           <img class="slide" src="assets/09_SM_CW.jpg" alt="Studio Millership image 9">
           <img class="slide" src="assets/10_SM_AP.jpg" alt="Studio Millership image 10">
-          <div class="image-mark" aria-hidden="true">SM(26)</div>
+        </div>
+
+        <div class="moving-name" aria-hidden="true">
+          <div class="moving-name-track">
+            <span>STUDIOMILLERSHIP</span>
+            <span>STUDIOMILLERSHIP</span>
+            <span>STUDIOMILLERSHIP</span>
+          </div>
         </div>
       </main>
 
