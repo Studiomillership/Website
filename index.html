@@ -15,7 +15,7 @@
       --image-width: clamp(246px, 27.3vw, 464px);
       --page-edge-x: clamp(24px, 2.8vw, 48px);
       --page-edge-y: clamp(28px, 5.4vh, 58px);
-      --landing-edge: clamp(52px, 7vh, 86px);
+      --landing-edge: clamp(42px, 3.8vw, 78px);
     }
 
     * {
@@ -96,16 +96,15 @@
 
     .mark {
       position: absolute;
-      left: var(--landing-edge);
-      bottom: var(--landing-edge);
+      left: 0;
+      bottom: 0;
       display: block;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 100px;
       font-weight: 400;
-      line-height: 0.8;
+      line-height: 1;
       letter-spacing: 0;
       white-space: nowrap;
-      transform-origin: left bottom;
     }
 
     .page {
@@ -275,7 +274,7 @@
         --page-edge-x: 20px;
         --page-edge-y: 24px;
         --image-width: min(67vw, 317px);
-        --landing-edge: max(28px, env(safe-area-inset-bottom));
+        --landing-edge: 22px;
       }
 
       .topbar {
@@ -410,19 +409,27 @@
       return parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--landing-edge"));
     };
 
+    const getArialMetrics = (fontSize) => {
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      context.font = `400 ${fontSize}px Arial`;
+      return context.measureText("STUDIOMILLERSHIP");
+    };
+
     const fitLandingWord = () => {
       const edge = getLandingEdge();
+      const text = "STUDIOMILLERSHIP";
       const availableWidth = window.innerWidth - edge * 2;
+      const baseSize = 100;
+      const baseMetrics = getArialMetrics(baseSize);
+      const baseInkWidth = baseMetrics.actualBoundingBoxRight - baseMetrics.actualBoundingBoxLeft;
+      const fittedSize = baseSize * (availableWidth / baseInkWidth);
+      const fittedMetrics = getArialMetrics(fittedSize);
 
-      landingMark.style.fontSize = "100px";
-      landingMark.style.transform = "none";
-      landingMark.style.left = `${edge}px`;
-      landingMark.style.bottom = `${edge}px`;
-
-      const baseWidth = landingMark.getBoundingClientRect().width;
-      const fittedSize = 100 * (availableWidth / baseWidth);
-
+      landingMark.textContent = text;
       landingMark.style.fontSize = `${fittedSize}px`;
+      landingMark.style.left = `${edge - fittedMetrics.actualBoundingBoxLeft}px`;
+      landingMark.style.bottom = `${edge - fittedMetrics.actualBoundingBoxDescent}px`;
     };
 
     const showSlide = (index) => {
