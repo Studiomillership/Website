@@ -83,10 +83,10 @@
       z-index: 20;
       display: flex;
       align-items: flex-end;
-      justify-content: flex-start;
+      justify-content: center;
       background: var(--paper);
       cursor: pointer;
-      padding: 0 clamp(18px, 3vw, 56px) clamp(52px, 7vh, 86px);
+      padding: 0 24px clamp(52px, 7vh, 86px);
       transition: opacity 900ms ease, visibility 900ms ease;
     }
 
@@ -98,11 +98,12 @@
 
     .mark {
       font-family: Arial, Helvetica, sans-serif;
-      font-size: clamp(64px, 8.9vw, 182px);
+      font-size: clamp(56px, 8.45vw, 172px);
       font-weight: 400;
       line-height: 0.82;
       letter-spacing: 0;
       white-space: nowrap;
+      text-align: center;
     }
 
     .page {
@@ -275,11 +276,11 @@
       }
 
       .landing {
-        padding: 0 14px max(38px, env(safe-area-inset-bottom));
+        padding: 0 12px max(38px, env(safe-area-inset-bottom));
       }
 
       .mark {
-        font-size: clamp(31px, 9.9vw, 58px);
+        font-size: clamp(30px, 9.4vw, 54px);
       }
 
       .topbar {
