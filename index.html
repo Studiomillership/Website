@@ -82,12 +82,8 @@
       position: fixed;
       inset: 0;
       z-index: 20;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
       background: var(--paper);
       cursor: pointer;
-      padding: 0 var(--landing-edge) var(--landing-edge);
       transition: opacity 900ms ease, visibility 900ms ease;
     }
 
@@ -97,14 +93,21 @@
       pointer-events: none;
     }
 
-    .mark {
+    .landing-word {
+      position: absolute;
+      left: var(--landing-edge);
+      right: var(--landing-edge);
+      bottom: var(--landing-edge);
+      width: calc(100vw - (var(--landing-edge) * 2));
+      height: clamp(92px, 11vw, 210px);
+      display: block;
+      overflow: visible;
+    }
+
+    .landing-word text {
       font-family: Arial, Helvetica, sans-serif;
-      font-size: min(10vw, 205px);
       font-weight: 400;
-      line-height: 0.82;
-      letter-spacing: 0;
-      white-space: nowrap;
-      text-align: center;
+      fill: var(--ink);
     }
 
     .page {
@@ -277,12 +280,12 @@
         --landing-edge: max(28px, env(safe-area-inset-bottom));
       }
 
-      .landing {
-        padding: 0 var(--landing-edge) var(--landing-edge);
-      }
-
-      .mark {
-        font-size: 8.6vw;
+      .landing-word {
+        left: var(--landing-edge);
+        right: var(--landing-edge);
+        bottom: var(--landing-edge);
+        width: calc(100vw - (var(--landing-edge) * 2));
+        height: clamp(34px, 11vw, 58px);
       }
 
       .topbar {
@@ -321,7 +324,9 @@
   <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 
   <div class="landing" id="landing" aria-label="Enter Studio Millership">
-    <div class="mark" aria-hidden="true">STUDIOMILLERSHIP</div>
+    <svg class="landing-word" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
+      <text x="0" y="118" textLength="1000" lengthAdjust="spacingAndGlyphs">STUDIOMILLERSHIP</text>
+    </svg>
   </div>
 
   <div class="site">
