@@ -15,6 +15,7 @@
       --image-width: clamp(246px, 27.3vw, 464px);
       --page-edge-x: clamp(24px, 2.8vw, 48px);
       --page-edge-y: clamp(28px, 5.4vh, 58px);
+      --landing-edge: clamp(52px, 7vh, 86px);
     }
 
     * {
@@ -86,7 +87,7 @@
       justify-content: center;
       background: var(--paper);
       cursor: pointer;
-      padding: 0 6px clamp(52px, 7vh, 86px);
+      padding: 0 var(--landing-edge) var(--landing-edge);
       transition: opacity 900ms ease, visibility 900ms ease;
     }
 
@@ -98,7 +99,7 @@
 
     .mark {
       font-family: Arial, Helvetica, sans-serif;
-      font-size: min(10.35vw, 205px);
+      font-size: min(8.35vw, 172px);
       font-weight: 400;
       line-height: 0.82;
       letter-spacing: 0;
@@ -273,14 +274,15 @@
         --page-edge-x: 20px;
         --page-edge-y: 24px;
         --image-width: min(67vw, 317px);
+        --landing-edge: max(38px, env(safe-area-inset-bottom));
       }
 
       .landing {
-        padding: 0 5px max(38px, env(safe-area-inset-bottom));
+        padding: 0 var(--landing-edge) var(--landing-edge);
       }
 
       .mark {
-        font-size: 10.2vw;
+        font-size: 7.5vw;
       }
 
       .topbar {
