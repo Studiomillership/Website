@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Studiomillership</title>
+  <title>SM(26)</title>
   <link rel="icon" href="/Website/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/Website/favicon.svg">
   <link rel="apple-touch-icon" href="/Website/favicon.png">
@@ -102,7 +102,7 @@
       font-family: Arial, Helvetica, sans-serif;
       font-size: 100px;
       font-weight: 400;
-      line-height: 1;
+      line-height: 0.8;
       letter-spacing: 0;
       white-space: nowrap;
       transform-origin: left bottom;
@@ -416,21 +416,13 @@
 
       landingMark.style.fontSize = "100px";
       landingMark.style.transform = "none";
+      landingMark.style.left = `${edge}px`;
+      landingMark.style.bottom = `${edge}px`;
 
-      const baseRect = landingMark.getBoundingClientRect();
-      const fittedSize = 100 * (availableWidth / baseRect.width);
+      const baseWidth = landingMark.getBoundingClientRect().width;
+      const fittedSize = 100 * (availableWidth / baseWidth);
 
       landingMark.style.fontSize = `${fittedSize}px`;
-
-      requestAnimationFrame(() => {
-        landingMark.style.transform = "none";
-
-        const rect = landingMark.getBoundingClientRect();
-        const targetBottom = window.innerHeight - edge;
-        const adjustY = targetBottom - rect.bottom;
-
-        landingMark.style.transform = `translateY(${adjustY}px)`;
-      });
     };
 
     const showSlide = (index) => {
