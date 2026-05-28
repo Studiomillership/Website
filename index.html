@@ -15,7 +15,7 @@
       --image-width: clamp(246px, 27.3vw, 464px);
       --page-edge-x: clamp(24px, 2.8vw, 48px);
       --page-edge-y: clamp(28px, 5.4vh, 58px);
-      --landing-edge: clamp(38px, 3.4vw, 70px);
+      --landing-gap: clamp(28px, 3.2vw, 62px);
     }
 
     * {
@@ -55,6 +55,17 @@
       cursor: pointer;
     }
 
+    button:focus:not(:focus-visible),
+    a:focus:not(:focus-visible) {
+      outline: 0;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 1px solid currentColor;
+      outline-offset: 0.18em;
+    }
+
     .cursor-dot {
       display: none;
     }
@@ -85,17 +96,18 @@
 
     .mark {
       position: absolute;
-      left: 50%;
-      bottom: var(--landing-edge);
-      transform: translateX(-50%);
+      left: var(--landing-gap);
+      right: var(--landing-gap);
+      bottom: var(--landing-gap);
       display: block;
       font-family: Arial, Helvetica, sans-serif;
-      font-size: 160px;
+      font-size: calc((100vw - (var(--landing-gap) * 2)) / 8.88);
       font-weight: 400;
-      line-height: 0.74;
+      line-height: 0.72;
       letter-spacing: 0;
       white-space: nowrap;
       text-transform: uppercase;
+      text-align: center;
     }
 
     .page {
@@ -230,6 +242,10 @@
       margin-bottom: 0;
     }
 
+    .contact-copy a {
+      text-decoration: none;
+    }
+
     @media (hover: hover) and (pointer: fine) {
       body,
       a,
@@ -261,7 +277,11 @@
         --page-edge-x: 20px;
         --page-edge-y: 24px;
         --image-width: min(67vw, 317px);
-        --landing-edge: 22px;
+        --landing-gap: 20px;
+      }
+
+      .mark {
+        font-size: calc((100vw - (var(--landing-gap) * 2)) / 8.88);
       }
 
       .topbar {
@@ -292,7 +312,7 @@
   <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 
   <div class="landing" id="landing" aria-label="Enter Studio Millership">
-    <div class="mark" id="landingMark">STUDIOMILLERSHIP</div>
+    <div class="mark">STUDIOMILLERSHIP</div>
   </div>
 
   <div class="site">
@@ -373,7 +393,6 @@
 
   <script>
     const landing = document.getElementById("landing");
-    const landingMark = document.getElementById("landingMark");
     const page = document.getElementById("page");
     const aboutButton = document.getElementById("aboutButton");
     const contactButton = document.getElementById("contactButton");
@@ -391,47 +410,6 @@
     };
 
     const nextSlide = () => showSlide(activeSlide + 1);
-
-    const getViewportWidth = () => {
-      return window.visualViewport ? window.visualViewport.width : window.innerWidth;
-    };
-
-    const fitLandingWord = () => {
-      const styles = getComputedStyle(document.documentElement);
-      const edge = parseFloat(styles.getPropertyValue("--landing-edge"));
-      const availableWidth = getViewportWidth() - edge * 2;
-
-      landingMark.style.fontSize = "100px";
-
-      const measuredWidth = landingMark.getBoundingClientRect().width;
-
-      if (!measuredWidth) {
-        return;
-      }
-
-      const fittedSize = 100 * (availableWidth / measuredWidth);
-      landingMark.style.fontSize = `${fittedSize}px`;
-    };
-
-    const refitLandingWord = () => {
-      requestAnimationFrame(() => {
-        fitLandingWord();
-        requestAnimationFrame(fitLandingWord);
-      });
-    };
-
-    refitLandingWord();
-    window.addEventListener("load", refitLandingWord);
-    window.addEventListener("resize", refitLandingWord);
-    window.addEventListener("orientationchange", refitLandingWord);
-
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", refitLandingWord);
-    }
-
-    if (document.fonts) {
-      document.fonts.ready.then(refitLandingWord);
-    }
 
     if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
       window.addEventListener("mousemove", (event) => {
