@@ -55,17 +55,6 @@
       cursor: pointer;
     }
 
-    button:focus:not(:focus-visible),
-    a:focus:not(:focus-visible) {
-      outline: 0;
-    }
-
-    button:focus-visible,
-    a:focus-visible {
-      outline: 1px solid currentColor;
-      outline-offset: 0.18em;
-    }
-
     .cursor-dot {
       display: none;
     }
@@ -96,12 +85,14 @@
 
     .mark {
       position: absolute;
-      left: 0;
-      bottom: 0;
+      left: 50%;
+      bottom: var(--landing-edge);
+      transform: translateX(-50%);
       display: block;
       font-family: Arial, Helvetica, sans-serif;
+      font-size: 160px;
       font-weight: 400;
-      line-height: 1;
+      line-height: 0.74;
       letter-spacing: 0;
       white-space: nowrap;
       text-transform: uppercase;
@@ -401,55 +392,41 @@
 
     const nextSlide = () => showSlide(activeSlide + 1);
 
-    const getLandingEdge = () => {
-      return parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--landing-edge"));
-    };
-
-    const measureWord = (fontSize) => {
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d");
-      context.font = `400 ${fontSize}px Arial, Helvetica, sans-serif`;
-      return context.measureText("STUDIOMILLERSHIP");
+    const getViewportWidth = () => {
+      return window.visualViewport ? window.visualViewport.width : window.innerWidth;
     };
 
     const fitLandingWord = () => {
-      const edge = getLandingEdge();
-      const viewportWidth = window.visualViewport ? window.visualViewport.width : window.innerWidth;
-      const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-      const availableWidth = viewportWidth - edge * 2;
-      const availableHeight = viewportHeight - edge * 2;
-      const baseSize = 100;
-      const baseMetrics = measureWord(baseSize);
-      const baseWidth = baseMetrics.actualBoundingBoxRight - baseMetrics.actualBoundingBoxLeft;
-      const baseHeight = baseMetrics.actualBoundingBoxAscent + baseMetrics.actualBoundingBoxDescent;
+      const styles = getComputedStyle(document.documentElement);
+      const edge = parseFloat(styles.getPropertyValue("--landing-edge"));
+      const availableWidth = getViewportWidth() - edge * 2;
 
-      let fittedSize = baseSize * (availableWidth / baseWidth);
+      landingMark.style.fontSize = "100px";
 
-      const fittedHeight = baseHeight * (fittedSize / baseSize);
-      if (fittedHeight > availableHeight * 0.42) {
-        fittedSize = baseSize * ((availableHeight * 0.42) / baseHeight);
+      const measuredWidth = landingMark.getBoundingClientRect().width;
+
+      if (!measuredWidth) {
+        return;
       }
 
-      const metrics = measureWord(fittedSize);
+      const fittedSize = 100 * (availableWidth / measuredWidth);
       landingMark.style.fontSize = `${fittedSize}px`;
-      landingMark.style.left = `${edge - metrics.actualBoundingBoxLeft}px`;
-      landingMark.style.bottom = `${edge - metrics.actualBoundingBoxDescent}px`;
     };
 
     const refitLandingWord = () => {
-      window.requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
         fitLandingWord();
-        window.requestAnimationFrame(fitLandingWord);
+        requestAnimationFrame(fitLandingWord);
       });
     };
 
-    fitLandingWord();
+    refitLandingWord();
+    window.addEventListener("load", refitLandingWord);
     window.addEventListener("resize", refitLandingWord);
     window.addEventListener("orientationchange", refitLandingWord);
 
     if (window.visualViewport) {
       window.visualViewport.addEventListener("resize", refitLandingWord);
-      window.visualViewport.addEventListener("scroll", refitLandingWord);
     }
 
     if (document.fonts) {
