@@ -15,7 +15,7 @@
       --image-width: clamp(246px, 27.3vw, 464px);
       --page-edge-x: clamp(24px, 2.8vw, 48px);
       --page-edge-y: clamp(28px, 5.4vh, 58px);
-      --landing-gap: clamp(30px, 3.2vw, 66px);
+      --landing-gap: clamp(34px, 3.2vw, 64px);
     }
 
     * {
@@ -87,9 +87,8 @@
       position: absolute;
       left: var(--landing-gap);
       bottom: var(--landing-gap);
-      display: inline-block;
-      width: auto;
-      max-width: none;
+      display: block;
+      width: max-content;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 100px;
       font-weight: 400;
@@ -97,7 +96,6 @@
       letter-spacing: 0;
       white-space: nowrap;
       text-transform: uppercase;
-      transform-origin: left bottom;
     }
 
     .page {
@@ -394,24 +392,21 @@
 
     const nextSlide = () => showSlide(activeSlide + 1);
 
-    const getViewportWidth = () => {
-      return window.visualViewport ? window.visualViewport.width : window.innerWidth;
-    };
-
     const fitLandingWord = () => {
-      landingMark.style.transform = "none";
+      const rootStyles = getComputedStyle(document.documentElement);
+      const gap = parseFloat(rootStyles.getPropertyValue("--landing-gap"));
+      const viewportWidth = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+      const targetWidth = viewportWidth - gap * 2;
+
       landingMark.style.fontSize = "100px";
+      const baseWidth = landingMark.scrollWidth;
 
-      const edge = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--landing-gap"));
-      const availableWidth = getViewportWidth() - edge * 2;
-      const naturalWidth = landingMark.getBoundingClientRect().width;
-
-      if (!naturalWidth || availableWidth <= 0) {
+      if (!baseWidth || targetWidth <= 0) {
         return;
       }
 
-      const scale = availableWidth / naturalWidth;
-      landingMark.style.transform = `scale(${scale})`;
+      const nextSize = 100 * (targetWidth / baseWidth);
+      landingMark.style.fontSize = `${nextSize}px`;
     };
 
     const refitLandingWord = () => {
