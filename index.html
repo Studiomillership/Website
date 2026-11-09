@@ -1,12 +1,35 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Studio Millership</title>
-  <link rel="icon" href="/Website/favicon.ico" sizes="any">
-  <link rel="icon" type="image/svg+xml" href="/Website/favicon.svg">
-  <link rel="apple-touch-icon" href="/Website/favicon.png">
+  <title>Studio Millership | London Architecture &amp; Interiors</title>
+  <meta name="description" content="Studio Millership is a London architecture and interiors studio working across residential and hospitality projects, from individual homes to larger commercial spaces.">
+  <link rel="canonical" href="https://www.studiomillership.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Studio Millership">
+  <meta property="og:title" content="Studio Millership | London Architecture &amp; Interiors">
+  <meta property="og:description" content="Studio Millership is a London architecture and interiors studio working across residential and hospitality projects, from individual homes to larger commercial spaces.">
+  <meta property="og:url" content="https://www.studiomillership.com/">
+  <meta property="og:image" content="https://www.studiomillership.com/assets/01_SM_BN.jpg">
+  <meta property="og:image:alt" content="Bendix, a Studio Millership project in Manchester">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Studio Millership",
+      "url": "https://www.studiomillership.com/",
+      "description": "Studio Millership is a London architecture and interiors studio working across residential and hospitality projects, from individual homes to larger commercial spaces.",
+      "logo": "https://www.studiomillership.com/SM_LOGO.png",
+      "sameAs": [
+        "https://www.instagram.com/studiomillership/"
+      ]
+    }
+  </script>
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="apple-touch-icon" href="./favicon.png">
 
   <style>
     :root {
@@ -177,6 +200,27 @@
       opacity: 1;
     }
 
+    .project-caption {
+      position: absolute;
+      right: var(--page-edge-x);
+      bottom: max(20px, env(safe-area-inset-bottom));
+      left: var(--page-edge-x);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: end;
+      gap: 16px;
+      margin: 0;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+      pointer-events: none;
+    }
+
+    .project-caption-location {
+      text-align: right;
+    }
+
     .about-panel,
     .contact-panel {
       position: absolute;
@@ -314,22 +358,26 @@
 
       <main class="stage">
         <div class="slideshow" id="slideshow" aria-label="Project image slideshow">
-          <img class="slide is-active" src="assets/01_SM_BN.jpg" alt="Studio Millership image 1">
-<img class="slide" src="assets/02_SM_BN.jpg" alt="Studio Millership image 2">
-<img class="slide" src="assets/03_SM_BN.jpg" alt="Studio Millership image 3">
-<img class="slide" src="assets/04_SM_BN.jpg" alt="Studio Millership image 4">
-<img class="slide" src="assets/05_SM_TL.jpg" alt="Studio Millership image 5">
-<img class="slide" src="assets/06_SM_NT.jpg" alt="Studio Millership image 6">
-<img class="slide" src="assets/07_SM_MO.jpg" alt="Studio Millership image 7">
-<img class="slide" src="assets/08_SM_BN.jpg" alt="Studio Millership image 8">
-<img class="slide" src="assets/09_SM_BN.jpg" alt="Studio Millership image 9">
-<img class="slide" src="assets/10_SM_NE.jpg" alt="Studio Millership image 10">
-<img class="slide" src="assets/11_SM_NP.jpg" alt="Studio Millership image 11">
-<img class="slide" src="assets/12_SM_AP.jpg" alt="Studio Millership image 12">
-<img class="slide" src="assets/13_SM_AP.jpg" alt="Studio Millership image 13">
-<img class="slide" src="assets/14_SM_CW.jpg" alt="Studio Millership image 14">
-<img class="slide" src="assets/15_SM_TL.jpg" alt="Studio Millership image 15">
+          <img class="slide is-active" src="assets/01_SM_BN.jpg" alt="Bendix, Manchester" data-project="Bendix" data-location="Manchester">
+          <img class="slide" src="assets/02_SM_BN.jpg" alt="Bendix, Manchester" data-project="Bendix" data-location="Manchester">
+          <img class="slide" src="assets/03_SM_BN.jpg" alt="Bendix, Manchester" data-project="Bendix" data-location="Manchester">
+          <img class="slide" src="assets/04_SM_BN.jpg" alt="Bendix, Manchester" data-project="Bendix" data-location="Manchester">
+          <img class="slide" src="assets/05_SM_TL.jpg" alt="The Lark, London" data-project="The Lark" data-location="London">
+          <img class="slide" src="assets/06_SM_NT.jpg" alt="Private, London" data-project="Private" data-location="London">
+          <img class="slide" src="assets/07_SM_MO.jpg" alt="Private, London" data-project="Private" data-location="London">
+          <img class="slide" src="assets/08_SM_BN.jpg" alt="Bendix, Manchester" data-project="Bendix" data-location="Manchester">
+          <img class="slide" src="assets/09_SM_BN.jpg" alt="Bendix, Manchester" data-project="Bendix" data-location="Manchester">
+          <img class="slide" src="assets/10_SM_NE.jpg" alt="Retail, London" data-project="Retail" data-location="London">
+          <img class="slide" src="assets/11_SM_NP.jpg" alt="Neptune, London" data-project="Neptune" data-location="London">
+          <img class="slide" src="assets/12_SM_AP.jpg" alt="Private, London" data-project="Private" data-location="London">
+          <img class="slide" src="assets/13_SM_AP.jpg" alt="Apex, London" data-project="Apex" data-location="London">
+          <img class="slide" src="assets/14_SM_CW.jpg" alt="Crown Works, Birmingham" data-project="Crown Works" data-location="Birmingham">
+          <img class="slide" src="assets/15_SM_TL.jpg" alt="The Lark, London" data-project="The Lark" data-location="London">
         </div>
+        <p class="project-caption" aria-live="polite" aria-atomic="true">
+          <span id="projectName">Bendix</span>
+          <span class="project-caption-location" id="projectLocation">Manchester</span>
+        </p>
       </main>
 
       <section class="about-panel" id="aboutPanel" aria-label="About Studio Millership">
@@ -393,17 +441,28 @@
     const aboutPanel = document.getElementById("aboutPanel");
     const contactPanel = document.getElementById("contactPanel");
     const slideshow = document.getElementById("slideshow");
+    const projectName = document.getElementById("projectName");
+    const projectLocation = document.getElementById("projectLocation");
     const cursorDot = document.getElementById("cursorDot");
     const slides = Array.from(document.querySelectorAll(".slide"));
     let activeSlide = 0;
+
+    const updateProjectCaption = () => {
+      const { project, location } = slides[activeSlide].dataset;
+      projectName.textContent = project || "";
+      projectLocation.textContent = location || "";
+    };
 
     const showSlide = (index) => {
       slides[activeSlide].classList.remove("is-active");
       activeSlide = (index + slides.length) % slides.length;
       slides[activeSlide].classList.add("is-active");
+      updateProjectCaption();
     };
 
     const nextSlide = () => showSlide(activeSlide + 1);
+
+    updateProjectCaption();
 
     if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
       window.addEventListener("mousemove", (event) => {
