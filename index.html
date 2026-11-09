@@ -35,7 +35,7 @@
     :root {
       --paper: #ece8e4;
       --ink: #050505;
-      --image-width: clamp(246px, 27.3vw, 464px);
+      --image-width: clamp(283px, 31.5vw, 534px);
       --page-edge-x: clamp(24px, 2.8vw, 48px);
       --page-edge-y: var(--page-edge-x);
       --landing-gap: clamp(34px, 3.2vw, 64px);
@@ -180,6 +180,7 @@
 
     .slideshow {
       width: var(--image-width);
+      max-width: 58svh;
       aspect-ratio: 0.805;
       position: relative;
       cursor: pointer;
@@ -199,26 +200,6 @@
       opacity: 1;
     }
 
-    .project-caption {
-      position: absolute;
-      right: var(--page-edge-x);
-      bottom: var(--page-edge-y);
-      left: var(--page-edge-x);
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      align-items: end;
-      gap: 16px;
-      margin: 0;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.25;
-      overflow-wrap: anywhere;
-      pointer-events: none;
-    }
-
-    .project-caption-location {
-      text-align: right;
-    }
 
     .about-panel,
     .contact-panel {
@@ -311,7 +292,7 @@
     @media (max-width: 760px) {
       :root {
         --page-edge-x: max(20px, env(safe-area-inset-left), env(safe-area-inset-right), env(safe-area-inset-bottom));
-        --image-width: min(67vw, 317px);
+        --image-width: min(77vw, 365px);
         --landing-gap: 20px;
       }
 
@@ -356,26 +337,22 @@
 
       <main class="stage">
         <div class="slideshow" id="slideshow" aria-label="Project image slideshow">
-          <img class="slide is-active" src="assets/01_SM_BN.jpg" alt="Bendix, Manchester" data-project="Bendix" data-location="Manchester">
-          <img class="slide" src="assets/02_SM_BN.jpg" alt="Bendix, Manchester" data-project="Bendix" data-location="Manchester">
-          <img class="slide" src="assets/03_SM_BN.jpg" alt="Bendix, Manchester" data-project="Bendix" data-location="Manchester">
-          <img class="slide" src="assets/04_SM_BN.jpg" alt="Bendix, Manchester" data-project="Bendix" data-location="Manchester">
-          <img class="slide" src="assets/05_SM_TL.jpg" alt="The Lark, London" data-project="The Lark" data-location="London">
-          <img class="slide" src="assets/06_SM_NT.jpg" alt="Private, London" data-project="Private" data-location="London">
-          <img class="slide" src="assets/07_SM_MO.jpg" alt="Private, London" data-project="Private" data-location="London">
-          <img class="slide" src="assets/08_SM_BN.jpg" alt="Bendix, Manchester" data-project="Bendix" data-location="Manchester">
-          <img class="slide" src="assets/09_SM_BN.jpg" alt="Bendix, Manchester" data-project="Bendix" data-location="Manchester">
-          <img class="slide" src="assets/10_SM_NE.jpg" alt="Retail, London" data-project="Retail" data-location="London">
-          <img class="slide" src="assets/11_SM_NP.jpg" alt="Neptune, London" data-project="Neptune" data-location="London">
-          <img class="slide" src="assets/12_SM_AP.jpg" alt="Private, London" data-project="Private" data-location="London">
-          <img class="slide" src="assets/13_SM_AP.jpg" alt="Apex, London" data-project="Apex" data-location="London">
-          <img class="slide" src="assets/14_SM_CW.jpg" alt="Crown Works, Birmingham" data-project="Crown Works" data-location="Birmingham">
-          <img class="slide" src="assets/15_SM_TL.jpg" alt="The Lark, London" data-project="The Lark" data-location="London">
+          <img class="slide is-active" src="assets/01_SM_BN.jpg" alt="Bendix, Manchester">
+          <img class="slide" src="assets/02_SM_BN.jpg" alt="Bendix, Manchester">
+          <img class="slide" src="assets/03_SM_BN.jpg" alt="Bendix, Manchester">
+          <img class="slide" src="assets/04_SM_BN.jpg" alt="Bendix, Manchester">
+          <img class="slide" src="assets/05_SM_TL.jpg" alt="The Lark, London">
+          <img class="slide" src="assets/06_SM_NT.jpg" alt="Private, London">
+          <img class="slide" src="assets/07_SM_MO.jpg" alt="Private, London">
+          <img class="slide" src="assets/08_SM_BN.jpg" alt="Bendix, Manchester">
+          <img class="slide" src="assets/09_SM_BN.jpg" alt="Bendix, Manchester">
+          <img class="slide" src="assets/10_SM_NE.jpg" alt="Retail, London">
+          <img class="slide" src="assets/11_SM_NP.jpg" alt="Neptune, London">
+          <img class="slide" src="assets/12_SM_AP.jpg" alt="Private, London">
+          <img class="slide" src="assets/13_SM_AP.jpg" alt="Apex, London">
+          <img class="slide" src="assets/14_SM_CW.jpg" alt="Crown Works, Birmingham">
+          <img class="slide" src="assets/15_SM_TL.jpg" alt="The Lark, London">
         </div>
-        <p class="project-caption" aria-live="polite" aria-atomic="true">
-          <span id="projectName">Bendix</span>
-          <span class="project-caption-location" id="projectLocation">Manchester</span>
-        </p>
       </main>
 
       <section class="about-panel" id="aboutPanel" aria-label="About Studio Millership">
@@ -439,28 +416,19 @@
     const aboutPanel = document.getElementById("aboutPanel");
     const contactPanel = document.getElementById("contactPanel");
     const slideshow = document.getElementById("slideshow");
-    const projectName = document.getElementById("projectName");
-    const projectLocation = document.getElementById("projectLocation");
     const cursorDot = document.getElementById("cursorDot");
     const slides = Array.from(document.querySelectorAll(".slide"));
     let activeSlide = 0;
 
-    const updateProjectCaption = () => {
-      const { project, location } = slides[activeSlide].dataset;
-      projectName.textContent = project || "";
-      projectLocation.textContent = location || "";
-    };
 
     const showSlide = (index) => {
       slides[activeSlide].classList.remove("is-active");
       activeSlide = (index + slides.length) % slides.length;
       slides[activeSlide].classList.add("is-active");
-      updateProjectCaption();
     };
 
     const nextSlide = () => showSlide(activeSlide + 1);
 
-    updateProjectCaption();
 
     if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
       window.addEventListener("mousemove", (event) => {
