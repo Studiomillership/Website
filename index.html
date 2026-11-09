@@ -37,7 +37,7 @@
       --ink: #050505;
       --image-width: clamp(246px, 27.3vw, 464px);
       --page-edge-x: clamp(24px, 2.8vw, 48px);
-      --page-edge-y: clamp(28px, 5.4vh, 58px);
+      --page-edge-y: var(--page-edge-x);
       --landing-gap: clamp(34px, 3.2vw, 64px);
     }
 
@@ -176,7 +176,6 @@
       min-height: 0;
       padding-top: clamp(42px, 5.8vh, 78px);
       padding-bottom: clamp(52px, 8vh, 92px);
-      position: relative;
     }
 
     .slideshow {
@@ -203,14 +202,14 @@
     .project-caption {
       position: absolute;
       right: var(--page-edge-x);
-      bottom: max(20px, env(safe-area-inset-bottom));
+      bottom: var(--page-edge-y);
       left: var(--page-edge-x);
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       align-items: end;
       gap: 16px;
       margin: 0;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 400;
       line-height: 1.25;
       overflow-wrap: anywhere;
@@ -311,8 +310,7 @@
 
     @media (max-width: 760px) {
       :root {
-        --page-edge-x: 20px;
-        --page-edge-y: 24px;
+        --page-edge-x: max(20px, env(safe-area-inset-left), env(safe-area-inset-right), env(safe-area-inset-bottom));
         --image-width: min(67vw, 317px);
         --landing-gap: 20px;
       }
